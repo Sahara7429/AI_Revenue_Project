@@ -1,14 +1,12 @@
 import streamlit as st
-from pathlib import Path
 import joblib
 import pandas as pd
 import seaborn as sns
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-model = joblib.load(BASE_DIR / "models" / "revenue_model.pkl")
-subscription_encoder = joblib.load(BASE_DIR / "models" / "subscription_encoder.pkl")
-month_encoder = joblib.load(BASE_DIR / "models" / "month_encoder.pkl")
+# Load saved files
+model = joblib.load(r"../models/revenue_model.pkl")
+subscription_encoder = joblib.load(r"../models/subscription_encoder.pkl")
+month_encoder = joblib.load(r"../models/month_encoder.pkl")
 
 st.title("AI-Powered SaaS Revenue Prediction")
 st.write("Predict monthly revenue based on customer details")
