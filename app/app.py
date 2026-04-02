@@ -5,6 +5,23 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from pathlib import Path
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# ---------------- LOAD ALL DATASETS ----------------
+data_folder = BASE_DIR / "data"
+
+data_files = list(data_folder.glob("*.csv"))  # all CSV files
+data_dict = {}  # store datasets
+
+for file in data_files:
+    df = pd.read_csv(file)
+    data_dict[file.stem] = df  # key = filename without extension
+
+# Optional: show dataset names in sidebar
+st.sidebar.subheader("Available Datasets")
+for name in data_dict.keys():
+    st.sidebar.write(name)
+
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(
     page_title="AI Revenue Insight System",
