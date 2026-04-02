@@ -1,12 +1,3 @@
-"""
-AI-Powered SaaS Revenue Insight System
-Professional rewrite — fixes all bugs, adds proper structure,
-real analytics, and polished UI.
-"""
-
-# ─────────────────────────────────────────────
-#  MUST be the very first Streamlit call
-# ─────────────────────────────────────────────
 import streamlit as st
 
 st.set_page_config(
@@ -15,10 +6,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
-
-# ─────────────────────────────────────────────
-#  Imports
-# ─────────────────────────────────────────────
+#Imports
 import pandas as pd
 import numpy as np
 import joblib
@@ -27,16 +15,12 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 from pathlib import Path
 
-# ─────────────────────────────────────────────
 #  Paths
-# ─────────────────────────────────────────────
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "data"
 MODEL_DIR = BASE_DIR / "models"
 
-# ─────────────────────────────────────────────
 #  Custom CSS  (dark-premium theme)
-# ─────────────────────────────────────────────
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -103,9 +87,7 @@ hr { border-color: #1E2D4A !important; }
 </style>
 """, unsafe_allow_html=True)
 
-# ─────────────────────────────────────────────
 #  Helper — dark-styled matplotlib figure
-# ─────────────────────────────────────────────
 BG = "#0B0F1A"
 CARD = "#141C2E"
 GRID = "#1E2D4A"
@@ -129,9 +111,7 @@ def dark_fig(w=7, h=3.5):
     ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f"₹{x:,.0f}"))
     return fig, ax
 
-# ─────────────────────────────────────────────
 #  Load datasets
-# ─────────────────────────────────────────────
 @st.cache_data
 def load_datasets():
     dfs = {}
@@ -145,9 +125,7 @@ def load_datasets():
 
 data_dict = load_datasets()
 
-# ─────────────────────────────────────────────
 #  Load models
-# ─────────────────────────────────────────────
 @st.cache_resource
 def load_models():
     model = joblib.load(MODEL_DIR / "revenue_model.pkl")
@@ -162,15 +140,12 @@ except Exception as e:
     models_ok = False
     model_error = str(e)
 
-# ─────────────────────────────────────────────
 #  Sidebar — inputs
-# ─────────────────────────────────────────────
 from sklearn.preprocessing import LabelEncoder
 
 MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
           "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
-# If you already saved a month_encoder, you can overwrite or refit it
 month_encoder = LabelEncoder()
 month_encoder.fit(MONTHS)  # Fit on all possible months
 
@@ -204,25 +179,19 @@ with st.sidebar:
     st.markdown("---")
     predict_btn = st.button("🚀 Predict Revenue", use_container_width=True)
 
-# ─────────────────────────────────────────────
 #  Header
-# ─────────────────────────────────────────────
 st.title("📈 AI-Powered SaaS Revenue Insight System")
 st.markdown("<p>Enter customer parameters in the sidebar and click <strong style='color:#3B82F6'>Predict Revenue</strong> to generate insights.</p>", unsafe_allow_html=True)
 st.markdown("---")
 
-# ─────────────────────────────────────────────
-#  Available datasets — always visible
-# ─────────────────────────────────────────────
+#  Available datasets
 if data_dict:
     with st.expander(f"📂 Loaded Datasets ({len(data_dict)})", expanded=False):
         for name, df in data_dict.items():
             st.markdown(f"**{name}** — {df.shape[0]:,} rows × {df.shape[1]} cols")
             st.dataframe(df.head(5), use_container_width=True)
 
-# ─────────────────────────────────────────────
 #  Prediction block
-# ─────────────────────────────────────────────
 if predict_btn:
 
     if not models_ok:
