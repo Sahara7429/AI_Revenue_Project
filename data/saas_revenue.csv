@@ -1,0 +1,10 @@
+Customer_ID,Subscription_Type,Monthly_Revenue,Churn_Rate,Active_Users,Marketing_Spend,Month
+1,Basic,1200,5,100,500,Jan
+2,Premium,3000,2,250,1000,Jan
+3,Enterprise,7000,1,600,2500,Jan
+4,Basic,1500,4,120,600,Feb
+5,Premium,3500,2,280,1100,Feb
+6,Enterprise,7500,1,650,2700,Feb
+7,Basic,1800,3,140,700,Mar
+8,Premium,4000,2,320,1200,Mar
+9,Enterprise,8000,1,700,3000,Mar
