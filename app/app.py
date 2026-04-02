@@ -127,6 +127,8 @@ active_users = st.sidebar.number_input("Active Users", min_value=0, value=100)
 marketing = st.sidebar.number_input("Marketing Spend (₹)", min_value=0, value=500)
 
 # ---------------- PREDICTION ----------------
+efficiency = 0  # default
+
 if st.sidebar.button("Predict Revenue"):
 
     # Encode inputs
