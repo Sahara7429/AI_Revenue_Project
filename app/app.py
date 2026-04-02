@@ -148,8 +148,15 @@ if st.sidebar.button("Predict Revenue"):
         "Month"
     ])
 
-    # Predict
+    # Predict revenue
     prediction = model.predict(input_data)[0]
+
+    # Calculate marketing efficiency safely
+    efficiency = prediction / marketing if marketing > 0 else 0
+
+    # Display results
+    st.success(f"Predicted Revenue: ${prediction:,.2f}")
+    st.info(f"Marketing Efficiency: {efficiency:,.2f}")
 
     # ---------------- METRIC CARDS ----------------
     col1, col2, col3 = st.columns(3)
@@ -235,7 +242,7 @@ sns.barplot(
 # Customize titles and labels with smaller font
 ax2.set_title("Input Values Summary", color="white", fontsize=10)
 ax2.set_xlabel("")
-ax2.set_ylabel("Value", color="white", fontsize=6)
+ax2.set_ylabel("Value", color="white", fontsize=8)
 
 # Tick labels smaller
 ax2.tick_params(axis='x', colors="white", labelsize=4)
