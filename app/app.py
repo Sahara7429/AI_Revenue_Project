@@ -1,19 +1,22 @@
 import streamlit as st
 import joblib
 import pandas as pd
-import seaborn as sns
+from pathlib import Path
+
+# Correct path for local + deployed app
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load saved files
-model = joblib.load(r"../models/revenue_model.pkl")
-subscription_encoder = joblib.load(r"../models/subscription_encoder.pkl")
-month_encoder = joblib.load(r"../models/month_encoder.pkl")
+model = joblib.load(BASE_DIR / "models" / "revenue_model.pkl")
+subscription_encoder = joblib.load(BASE_DIR / "models" / "subscription_encoder.pkl")
+month_encoder = joblib.load(BASE_DIR / "models" / "month_encoder.pkl")
 
 st.title("AI-Powered SaaS Revenue Prediction")
 st.write("Predict monthly revenue based on customer details")
 
 subscription = st.selectbox(
     "Subscription Type",
-    ['Basic', 'Premium', 'Enterprise']
+    ["Basic", "Premium", "Enterprise"]
 )
 
 churn = st.number_input("Churn Rate", min_value=0.0)
@@ -21,7 +24,7 @@ active_users = st.number_input("Active Users", min_value=0)
 marketing = st.number_input("Marketing Spend", min_value=0)
 month = st.selectbox(
     "Month",
-    ['Jan', 'Feb', 'Mar']
+    ["Jan", "Feb", "Mar"]
 )
 
 if st.button("Predict Revenue"):
@@ -35,11 +38,11 @@ if st.button("Predict Revenue"):
         marketing,
         month_encoded
     ]], columns=[
-        'Subscription_Type',
-        'Churn_Rate',
-        'Active_Users',
-        'Marketing_Spend',
-        'Month'
+        "Subscription_Type",
+        "Churn_Rate",
+        "Active_Users",
+        "Marketing_Spend",
+        "Month"
     ])
 
     prediction = model.predict(input_data)[0]
