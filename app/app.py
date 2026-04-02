@@ -4,12 +4,12 @@ import pandas as pd
 from pathlib import Path
 
 # Correct path for local + deployed app
-BASE_DIR = Path(__file__).resolve().parent.parent
+#BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load saved files
-model = joblib.load(BASE_DIR / "models" / "revenue_model.pkl")
-subscription_encoder = joblib.load(BASE_DIR / "models" / "subscription_encoder.pkl")
-month_encoder = joblib.load(BASE_DIR / "models" / "month_encoder.pkl")
+model = joblib.load("models\revenue_model.pkl")
+subscription_encoder = joblib.load("models/subscription_encoder.pkl")
+month_encoder = joblib.load("models/month_encoder.pkl")
 
 st.title("AI-Powered SaaS Revenue Prediction")
 st.write("Predict monthly revenue based on customer details")
