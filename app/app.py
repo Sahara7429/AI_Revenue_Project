@@ -213,7 +213,9 @@ if predict_btn:
     prediction = float(model.predict(input_df)[0])
     efficiency = prediction / marketing if marketing > 0 else 0.0
 
+
     #  Churn risk label 
+
     if churn < 5:
         risk, risk_col, card_cls = "Low", GREEN, "green"
     elif churn < 10:
@@ -263,7 +265,7 @@ if predict_btn:
     st.subheader("📊 Visual Analytics")
     col_l, col_r = st.columns(2)
 
-    # ── Pie: Revenue vs Marketing ──
+    # Pie: Revenue vs Marketing 
     with col_l:
         fig1, ax1 = plt.subplots(figsize=(5, 3.5))
         fig1.patch.set_facecolor(CARD)
