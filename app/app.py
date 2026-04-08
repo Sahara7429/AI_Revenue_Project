@@ -213,7 +213,7 @@ if predict_btn:
     prediction = float(model.predict(input_df)[0])
     efficiency = prediction / marketing if marketing > 0 else 0.0
 
-    # ── Churn risk label ──────────────────────
+    #  Churn risk label 
     if churn < 5:
         risk, risk_col, card_cls = "Low", GREEN, "green"
     elif churn < 10:
@@ -221,7 +221,7 @@ if predict_btn:
     else:
         risk, risk_col, card_cls = "High", RED, "red"
 
-    # ── KPI cards ────────────────────────────
+    # KPI cards 
     st.subheader("📌 Key Metrics")
     c1, c2, c3, c4 = st.columns(4)
 
@@ -259,7 +259,7 @@ if predict_btn:
 
     st.markdown("---")
 
-    # ── Charts ────────────────────────────────
+    # Charts 
     st.subheader("📊 Visual Analytics")
     col_l, col_r = st.columns(2)
 
@@ -285,7 +285,7 @@ if predict_btn:
         fig1.tight_layout()
         st.pyplot(fig1)
 
-    # ── Bar: Input summary ──
+    # Bar: Input summary
     with col_r:
         fig2, ax2 = dark_fig(5, 3.5)
         ax2.yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f"{x:,.0f}"))
@@ -306,7 +306,7 @@ if predict_btn:
         fig2.tight_layout()
         st.pyplot(fig2)
 
-    # ── Revenue trend simulation ──
+    # Revenue trend simulation 
     st.markdown("#### 📈 Simulated Revenue Trend (±20% churn sensitivity)")
     churn_range = np.linspace(max(0, churn - 5), min(20, churn + 5), 30)
     rev_trend   = []
@@ -329,7 +329,7 @@ if predict_btn:
 
     st.markdown("---")
 
-    # ── Financial summary table ──────────────────
+    # Financial summary table
     st.subheader("🧾 Financial Summary")
     summary = pd.DataFrame({
         "Metric": [
@@ -355,7 +355,7 @@ if predict_btn:
 
     st.markdown("---")
 
-    # ── Business insight ────────────────────────
+    # Business insight 
     st.subheader("💡 Business Insight")
 
     if prediction > 5000:
@@ -381,7 +381,7 @@ if predict_btn:
         before increasing marketing spend of ₹{marketing:,}.
         </div>""", unsafe_allow_html=True)
 
-    # ── Actionable recommendations ───────────────
+    # Actionable recommendations 
     st.markdown("#### 🎯 Recommendations")
     recs = []
 
@@ -412,7 +412,7 @@ if predict_btn:
         st.markdown(f"- {r}")
 
 else:
-    # ── Placeholder when no prediction made ──────
+    # Placeholder when no prediction made 
     st.info("👈 Fill in the customer details in the sidebar and click **Predict Revenue** to get started.")
 
     if data_dict:
